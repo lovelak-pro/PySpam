@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spammer</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      h1 {
+        font-family: fantasy;
+        font-size: 35px;
+        color: #646464;
+        margin-top: 20px;
+        letter-spacing: 1px;
+      }
+      fieldset {
+        margin: 10px auto;
+        width: 300px;
+        padding: 0 10px;
+        border-radius: 10px;
+        border: 1px solid #333;
+        .s {
+          float: right;
+          padding: 0%;
+          padding-right: 40px;
+          margin: 0%;
+        }
+        .f {
+          float: left;
+          padding: 0%;
+          padding-left: 40px;
+          margin: 0%;
+        }
+      }
+      legend {
+        text-align: left;
+        text-transform: capitalize;
+      }
+
+      textarea {
+        font-size: 24px;
+        padding-left: 10px;
+        border: none;
+        width: 95%;
+        height: 120px;
+        resize: none;
+      }
+      #amount {
+        font-size: 20px;
+        padding-bottom: 10px;
+        border: none;
+        width: 95%;
+        height: 30px;
+      }
+      textarea:focus,
+      #amount:focus {
+        outline: none;
+      }
+      span {
+        color: rgb(255, 47, 47);
+      }
+      #start {
+        width: 150px;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #e6e6e6;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+      #start:hover {
+        box-shadow: 0 0 10px #555555;
+        background-color: #868686;
+        color: white;
+      }
+      #speed {
+        width: 70%;
+        margin: auto;
+      }
+      #warn {
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .note {
+        padding: 0%;
+        margin: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PySpam <span>v0.0.1</span></h1>
+    <fieldset>
+      <legend>Message<span>*</span></legend>
+      <textarea name="" id="message" autocomplete="off" required></textarea>
+    </fieldset>
+    <fieldset>
+      <legend>Amount of messages<span>*</span></legend>
+      <input type="number" name="" id="amount" autocomplete="off" required />
+    </fieldset>
+    <fieldset>
+      <legend>Speed of typing<span>*</span></legend>
+      <p class="f">fast</p>
+      <p class="s">slow</p>
+      <input
+        type="range"
+        name=""
+        id="speed"
+        min="1"
+        max="9"
+        autocomplete="off"
+      />
+      <p class="note">NOTE : its 1 to 9</p>
+    </fieldset>
+    <button id="start">Start Spam</button>
+    <p id="warn"></p>
+    <p>To force stop press/hold "ESC"</p>
+  </body>
+  <script>
+    const speed = document.getElementById("speed");
+    const message = document.getElementById("message");
+    const amount = document.getElementById("amount");
+    const start = document.getElementById("start");
+    const warn = document.getElementById("warn");
+    start.addEventListener("click", () => {
+      if (message.value === "" || amount.value === "") {
+        warn.textContent = "Please fill in all fields.";
+        return;
+      } else {
+        const msg = message.value;
+        const amt = parseInt(amount.value);
+        const typingSpeed = parseInt(speed.value);
+        warn.textContent = "Spamming started... Switch to the target window.";
+        window.pywebview.api.main(msg, amt, typingSpeed);
+      }
+    });
+  </script>
+</html>
