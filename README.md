@@ -9,11 +9,6 @@ I made this PySpam spamming bot with Python for the backend and HTML, CSS, and J
 - Simple and clean user interface.
 - Force stop anytime by pressing the `ESC` key.
 
-## What's New
-
-- UI improved
-- Fixed some bugs 🐞
-
 ## How It Works
 
 1. Enter the message you want to spam.
