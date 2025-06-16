@@ -18,5 +18,5 @@ class Api:
 
 if __name__ == "__main__":
     api = Api()
-    webview.create_window('PySpam v0.0.1' , 'src/index.html', width=450, height=650 ,js_api=api)
+    webview.create_window('PySpam v0.1.1' , 'src/index.html', width=450, height=650 ,resizable=False,js_api=api)
     webview.start()

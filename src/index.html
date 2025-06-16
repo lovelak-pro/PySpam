@@ -23,6 +23,8 @@
         padding: 0 10px;
         border-radius: 10px;
         border: 1px solid #333;
+        transition: 0.2s ease-in-out;
+
         .s {
           float: right;
           padding: 0%;
@@ -35,6 +37,9 @@
           padding-left: 40px;
           margin: 0%;
         }
+      }
+      fieldset:hover {
+        scale: 1.05;
       }
       legend {
         text-align: left;
@@ -64,6 +69,7 @@
         color: rgb(255, 47, 47);
       }
       #start {
+        margin-top: 10px;
         width: 150px;
         height: 40px;
         border-radius: 5px;
@@ -73,9 +79,10 @@
         transition: 0.2s ease-in-out;
       }
       #start:hover {
+        scale: 1.05;
         box-shadow: 0 0 10px #555555;
-        background-color: #868686;
-        color: white;
+        background-color: white;
+        color: black;
       }
       #speed {
         width: 70%;
@@ -93,7 +100,7 @@
     </style>
   </head>
   <body>
-    <h1>PySpam <span>v0.0.1</span></h1>
+    <h1>PySpam <span>v0.1.1</span></h1>
     <fieldset>
       <legend>Message<span>*</span></legend>
       <textarea name="" id="message" autocomplete="off" required></textarea>
@@ -114,7 +121,7 @@
         max="9"
         autocomplete="off"
       />
-      <p class="note">NOTE : its 1 to 9</p>
+      <p class="note" id="note"></p>
     </fieldset>
     <button id="start">Start Spam</button>
     <p id="warn"></p>
@@ -126,6 +133,14 @@
     const amount = document.getElementById("amount");
     const start = document.getElementById("start");
     const warn = document.getElementById("warn");
+    const note = document.getElementById("note");
+
+    note.textContent = "Speed : 0." + speed.value + "s per spam";
+
+    speed.addEventListener("input", () => {
+      note.textContent = "Speed : 0." + speed.value + "s per spam";
+    });
+
     start.addEventListener("click", () => {
       if (message.value === "" || amount.value === "") {
         warn.textContent = "Please fill in all fields.";
@@ -136,6 +151,9 @@
         const typingSpeed = parseInt(speed.value);
         warn.textContent = "Spamming started... Switch to the target window.";
         window.pywebview.api.main(msg, amt, typingSpeed);
+        setTimeout(() => {
+          warn.textContent = "";
+        }, 5000);
       }
     });
   </script>
